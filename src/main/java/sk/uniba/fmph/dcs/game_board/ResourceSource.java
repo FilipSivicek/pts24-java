@@ -103,6 +103,20 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
     @Override
     public ActionResult makeAction(final Player player, final Effect[] inputResources, final Effect[] outputResources) {
         int size = figures.size();
+
+        boolean hasFigure = false;
+
+        for (PlayerOrder figure: figures){
+            if (figure.getOrder() == player.playerOrder().getOrder()){
+                hasFigure = true;
+                break;
+            }
+        }
+
+        if (!hasFigure){
+            return ActionResult.FAILURE;
+        }
+
         for (int i = size-1; i >= 0; i--){
             if (figures.get(i).getOrder() == player.playerOrder().getOrder()){
                 figures.remove(i);
