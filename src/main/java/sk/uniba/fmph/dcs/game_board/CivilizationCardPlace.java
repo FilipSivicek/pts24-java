@@ -13,17 +13,28 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
     private CivilisationCard card;
     private ArrayList<PlayerOrder> figures;
 
+    public CivilizationCardPlace(CivilisationCard card){
+        this.card = card;
+    }
+
+    public CivilizationCardPlace(){}
+
     /**
      * TODO.
      *
      * @param player
      * @param figureCount
-     *
+     *this.card = null;
+
      * @return TODO
      */
     @Override
     public boolean placeFigures(final Player player, final int figureCount) {
-        return false;
+        if (!figures.isEmpty() || figureCount > 1){
+            return false;
+        }
+        figures.add(player.playerOrder());
+        return true;
     }
 
     /**
@@ -36,7 +47,10 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public HasAction tryToPlaceFigures(final Player player, final int count) {
-        return null;
+        if (!figures.isEmpty() || count > 1){
+            return HasAction.NO_ACTION_POSSIBLE;
+        }
+        return HasAction.WAITING_FOR_PLAYER_ACTION;
     }
 
     /**
@@ -50,7 +64,11 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public ActionResult makeAction(final Player player, final Effect[] inputResources, final Effect[] outputResources) {
-        return null;
+        if (figures.isEmpty() || figures.getFirst().getOrder() != player.playerOrder().getOrder()){
+            return ActionResult.FAILURE;
+        }
+        figures.removeFirst();
+        return ActionResult.ACTION_DONE;
     }
 
     /**
@@ -62,7 +80,11 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public boolean skipAction(final Player player) {
-        return false;
+        if (figures.isEmpty() || figures.getFirst().getOrder() != player.playerOrder().getOrder()){
+            return false;
+        }
+        figures.removeFirst();
+        return true;
     }
 
     /**
@@ -74,7 +96,10 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public HasAction tryToMakeAction(final Player player) {
-        return null;
+        if (figures.isEmpty() || figures.getFirst().getOrder() != player.playerOrder().getOrder()){
+            return HasAction.NO_ACTION_POSSIBLE;
+        }
+        return HasAction.WAITING_FOR_PLAYER_ACTION;
     }
 
     /**
@@ -84,7 +109,7 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public boolean newTurn() {
-        return false;
+        return !figures.isEmpty();
     }
 
     /**
