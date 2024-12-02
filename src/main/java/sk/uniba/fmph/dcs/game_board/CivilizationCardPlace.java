@@ -7,14 +7,18 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
     private int requiredResources;
     private CivilisationCard card;
     private ArrayList<PlayerOrder> figures;
+    private CivilizationCardDeck deck;
+    private boolean cardTaken = false;
 
-    public CivilizationCardPlace(CivilisationCard card){
-        this.card = card;
+    public CivilizationCardPlace(CivilizationCardDeck deck){
+        this.deck = deck;
+        deck.getTop().ifPresent(civilisationCard -> this.card = civilisationCard);
     }
 
     public CivilizationCardPlace(){}
@@ -64,10 +68,11 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public ActionResult makeAction(final Player player, final Effect[] inputResources, final Effect[] outputResources) {
-        if (figures.isEmpty() || figures.getFirst().getOrder() != player.playerOrder().getOrder()){
+        if (figures.isEmpty() || figures.getFirst().getOrder() != player.playerOrder().getOrder() || cardTaken){
             return ActionResult.FAILURE;
         }
         figures.removeFirst();
+        cardTaken = true;
         return ActionResult.ACTION_DONE;
     }
 
@@ -96,7 +101,7 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public HasAction tryToMakeAction(final Player player) {
-        if (figures.isEmpty() || figures.getFirst().getOrder() != player.playerOrder().getOrder()){
+        if (figures.isEmpty() || figures.getFirst().getOrder() != player.playerOrder().getOrder() || cardTaken){
             return HasAction.NO_ACTION_POSSIBLE;
         }
         return HasAction.WAITING_FOR_PLAYER_ACTION;
@@ -109,7 +114,14 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public boolean newTurn() {
-        return !figures.isEmpty();
+        if (!figures.isEmpty()){
+            return false;
+        }
+        if (cardTaken){
+            deck.getTop().ifPresent(civilisationCard -> this.card = civilisationCard);
+            cardTaken = false;
+        }
+        return true;
     }
 
     /**
