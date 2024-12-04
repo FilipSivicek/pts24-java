@@ -21,4 +21,7 @@ public interface InterfacePlayerBoardGameBoard {
 
     Optional<Integer> useTool(int idx);
 
+    int getToolStrength(int index);
+
+    
 }
