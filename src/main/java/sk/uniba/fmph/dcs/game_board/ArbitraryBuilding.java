@@ -16,7 +16,7 @@ public final class ArbitraryBuilding implements Building {
 
     @Override
     public OptionalInt build(final Collection<Effect> resources) {
-        if (resources.size() > numberOfResources) {
+        if (resources.size() != numberOfResources) {
             return OptionalInt.empty();
         }
         int sum = 0;

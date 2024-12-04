@@ -8,6 +8,7 @@ public final class GetSomethingThrow implements EvaluateCivilisationCardImmediat
     private final Effect resource;
     private CurrentThrow currentThrow;
     private GameBoard gameBoard;
+    private int throwResult = 0;
 
     public GetSomethingThrow(final Effect resource, GameBoard gameBoard) {
         this.resource = resource;
