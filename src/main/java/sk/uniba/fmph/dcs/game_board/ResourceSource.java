@@ -161,9 +161,7 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
      */
     @Override
     public boolean newTurn() {
-        if (!figures.isEmpty()){
-            return false;
-        }
+        figures = new ArrayList<>();
         playersPlaced = new HashSet<>();
         return true;
     }
