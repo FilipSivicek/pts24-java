@@ -8,6 +8,7 @@ public final class GetSomethingThrow implements EvaluateCivilisationCardImmediat
     private final Effect resource;
     private CurrentThrow currentThrow;
     private GameBoard gameBoard;
+    private int throwResult = 0;
 
     public GetSomethingThrow(final Effect resource, GameBoard gameBoard) {
         this.resource = resource;
@@ -21,10 +22,13 @@ public final class GetSomethingThrow implements EvaluateCivilisationCardImmediat
         }
 
         ResourceSource rs = gameBoard.getResourceSource(choice);
-        int playerFigures;
+        int playerFigures = 0;
+        if (rs != null){
+            playerFigures = rs.getFiguresCount(player);
+        }
 
-        currentThrow.initiate(player, choice, 2 /*todo*/);
-        int pocet = currentThrow.getThrowsResult(); // todo
+        currentThrow.initiate(player, choice, playerFigures);
+        int pocet = currentThrow.getThrowsResult();
         Effect[] res = new Effect[pocet];
         Arrays.fill(res, choice);
         player.playerBoard().giveEffect(res);

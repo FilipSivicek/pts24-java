@@ -31,6 +31,16 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
         this.name = name;
     }
 
+    public int getFiguresCount(Player player){
+        int ans = 0;
+        for (PlayerOrder po: figures){
+            if (po.getOrder() == player.playerOrder().getOrder()){
+                ans++;
+            }
+        }
+        return ans;
+    }
+
     /**
      * TODO.
      *
