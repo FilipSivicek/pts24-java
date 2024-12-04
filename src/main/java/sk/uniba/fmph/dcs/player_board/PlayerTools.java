@@ -110,6 +110,13 @@ public class PlayerTools {
         return ans;
     }
 
+    public int getToolStrength(final int index){
+        if (index < maxMultipleUseTools && !usedTools[index]){
+            return tools[index];
+        }
+        return tools[index];
+    }
+
     /**
      * @param goal
      *            - number we need to achieve.

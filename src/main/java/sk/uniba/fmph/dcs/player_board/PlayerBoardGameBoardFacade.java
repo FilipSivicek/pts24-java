@@ -192,4 +192,9 @@ public final class PlayerBoardGameBoardFacade
         }
         return Optional.of(value);
     }
+
+    @Override
+    public int getToolStrength(int index) {
+        return playerBoard.getPlayerTools().getToolStrength(index);
+    }
 }

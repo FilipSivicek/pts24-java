@@ -3,26 +3,24 @@ package sk.uniba.fmph.dcs.game_board;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.InterfaceToolUse;
 
-public final class CurrentThrow implements InterfaceToolUse {
-    private final Effect throwsFor;
-    private final int throwsResult;
-    private Player player;
-    private Effect effect;
-    private int dices;
+import java.util.Arrays;
 
-    public CurrentThrow(final Effect throwsFor, final int throwResult) {
-        this.throwsFor = throwsFor;
-        this.throwsResult = throwResult;
-    }
+public final class CurrentThrow implements InterfaceToolUse {
+    private Effect throwsFor;
+    private int throwsResult = 0;
+    private Player player;
+    private int dices;
 
     public void initiate(final Player player, final Effect effect, final int dices) {
         this.player = player;
-        this.effect = effect;
+        this.throwsFor = effect;
         this.dices = dices;
+        throwsResult = Arrays.stream(Throw.hod(this.dices)).sum();
     }
 
     @Override
     public boolean useTool(final int idx) {
+        throwsResult += player.playerBoard().getToolStrength(idx);
         return player.playerBoard().useTool(idx).isPresent();
     }
 
@@ -34,5 +32,9 @@ public final class CurrentThrow implements InterfaceToolUse {
     @Override
     public boolean finishUsingTools() {
         return !player.playerBoard().hasSufficientTools(1);
+    }
+
+    public int getThrowsResult(){
+        return throwsResult/throwsFor.points();
     }
 }
