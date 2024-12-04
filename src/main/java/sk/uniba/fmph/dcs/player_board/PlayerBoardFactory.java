@@ -1,5 +1,7 @@
 package sk.uniba.fmph.dcs.player_board;
 
+import sk.uniba.fmph.dcs.game_board.GameBoard;
+
 import java.util.Map;
 
 public final class PlayerBoardFactory {

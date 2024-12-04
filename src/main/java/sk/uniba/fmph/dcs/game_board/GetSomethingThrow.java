@@ -7,9 +7,11 @@ import java.util.Arrays;
 public final class GetSomethingThrow implements EvaluateCivilisationCardImmediateEffect {
     private final Effect resource;
     private CurrentThrow currentThrow;
+    private GameBoard gameBoard;
 
-    public GetSomethingThrow(final Effect resource) {
+    public GetSomethingThrow(final Effect resource, GameBoard gameBoard) {
         this.resource = resource;
+        this.gameBoard = gameBoard;
     }
 
     @Override
@@ -18,7 +20,8 @@ public final class GetSomethingThrow implements EvaluateCivilisationCardImmediat
             return false;
         }
 
-
+        ResourceSource rs = gameBoard.getResourceSource(choice);
+        int playerFigures;
 
         currentThrow.initiate(player, choice, 2 /*todo*/);
         int pocet = currentThrow.getThrowsResult(); // todo
