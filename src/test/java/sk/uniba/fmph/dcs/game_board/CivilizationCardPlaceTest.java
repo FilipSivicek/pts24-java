@@ -18,7 +18,8 @@ public class CivilizationCardPlaceTest {
     @BeforeEach
     public void setUp(){
         cdc = new CivilizationCardDeck();
-        place = new CivilizationCardPlace(cdc);
+        GetCard getCard = new GetCard(cdc);
+        place = new CivilizationCardPlace(getCard);
         p1boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
         po = new PlayerOrder(0, 4);
         player = new Player(po, p1boardFacade);
@@ -29,7 +30,8 @@ public class CivilizationCardPlaceTest {
     @Test
     public void placeFiguresTest(){
         CivilizationCardDeck cdc = new CivilizationCardDeck();
-        CivilizationCardPlace place = new CivilizationCardPlace(cdc);
+        GetCard getCard = new GetCard(cdc);
+        CivilizationCardPlace place = new CivilizationCardPlace(getCard);
         PlayerBoardGameBoardFacade p1boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
         PlayerOrder po = new PlayerOrder(0, 4);
         Player player = new Player(po, p1boardFacade);
