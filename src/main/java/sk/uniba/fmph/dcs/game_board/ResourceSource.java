@@ -1,9 +1,6 @@
 package sk.uniba.fmph.dcs.game_board;
 
-import sk.uniba.fmph.dcs.stone_age.ActionResult;
-import sk.uniba.fmph.dcs.stone_age.Effect;
-import sk.uniba.fmph.dcs.stone_age.HasAction;
-import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
+import sk.uniba.fmph.dcs.stone_age.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,7 +9,7 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
     private String name = "";
     private final Effect resource;
     private int count;
-    private final int maxFigures = 7;
+    private int maxFigures = 7;
     private int maxFigureColors = 4;
 
     private HashSet<PlayerOrder> playersPlaced = new HashSet<>();
@@ -22,6 +19,9 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
     public ResourceSource(final Effect resource, final int count) {
         this.resource = resource;
         this.count = count;
+        if (resource == Effect.FOOD){
+            maxFigures = Integer.MAX_VALUE;
+        }
     }
 
 
