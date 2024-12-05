@@ -15,6 +15,7 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
     private ArrayList<PlayerOrder> figures = new ArrayList<>();
     private CivilizationCardDeck deck;
     private boolean cardTaken = false;
+    private boolean hasEnded = false;
 
     public CivilizationCardPlace(CivilizationCardDeck deck){
         this.deck = deck;
@@ -113,12 +114,16 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public boolean newTurn() {
+        if (hasEnded){
+            return true;
+        }
         figures = new ArrayList<>();
         Optional<CivilisationCard> nextCard;
         if (cardTaken){
             cardTaken = false;
             nextCard = deck.getTop();
             if (nextCard.isEmpty()){
+                hasEnded = true;
                 return true;
             }
             card = nextCard.get();

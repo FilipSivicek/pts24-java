@@ -79,9 +79,10 @@ public class CivilizationCardPlaceTest {
         ans = place.makeAction(player, null, null);
         assert ans == ActionResult.FAILURE;
 
+        place.newTurn();
         place.placeFigures(player, 1);
         ans = place.makeAction(player, null, null);
-        assert ans == ActionResult.FAILURE;
+        assert ans == ActionResult.ACTION_DONE;
     }
 
     @Test
@@ -110,8 +111,28 @@ public class CivilizationCardPlaceTest {
         ans = place.tryToMakeAction(player);
         assert ans == HasAction.NO_ACTION_POSSIBLE;
 
+        place.newTurn();
         place.placeFigures(player, 1);
         ans = place.tryToMakeAction(player);
-        assert ans == HasAction.NO_ACTION_POSSIBLE;
+        assert ans == HasAction.WAITING_FOR_PLAYER_ACTION;
+    }
+
+    @Test
+    public void newTurnTest(){
+        boolean ans;
+        for (int i = 0; i < 35; i++){
+            place.placeFigures(player, 1);
+            place.makeAction(player, null, null);
+            ans = place.newTurn();
+            assert !ans;
+        }
+
+        place.placeFigures(player, 1);
+        place.makeAction(player, null, null);
+
+        for (int i = 0; i < 100; i++){
+            ans = place.newTurn();
+            assert ans;
+        }
     }
 }
