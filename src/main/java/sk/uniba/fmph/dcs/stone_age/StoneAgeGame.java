@@ -1,5 +1,7 @@
 package sk.uniba.fmph.dcs.stone_age;
 
+import sk.uniba.fmph.dcs.game_board.Player;
+
 import java.util.Collection;
 import java.util.Map;
 
@@ -7,13 +9,13 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
 
     private final Map<Integer, PlayerOrder> players;
     private final InterfaceGamePhaseController phaseController;
-    private final InterfaceGetState playerBoardState;
+    private final Map<Integer, InterfaceGetState> playerBoardState;
     private final InterfaceGetState gameBoardState;
     private final StoneAgeObservable observable;
 
 
     public StoneAgeGame(final Map<Integer, PlayerOrder> players, final StoneAgeObservable observable, final InterfaceGamePhaseController phaseController,
-                        final InterfaceGetState playerBoardState, final InterfaceGetState gameBoardState) {
+                        final Map<Integer, InterfaceGetState> playerBoardState, final InterfaceGetState gameBoardState) {
         this.players = players;
         this.phaseController = phaseController;
         this.observable = observable;
@@ -21,11 +23,12 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
         this.gameBoardState = gameBoardState;
     }
 
-    private void notif() {
-        String state1 = playerBoardState.state();
+    private void NOTIFY() {
+        for (int i: playerBoardState.keySet()){
+            observable.notify(playerBoardState.get(i).state());
+        }
         String state2 = gameBoardState.state();
         String state3 = phaseController.state();
-        observable.notify(state1);
         observable.notify(state2);
         observable.notify(state3);
     }
@@ -36,7 +39,7 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
             return false;
         }
         boolean result = phaseController.placeFigures(players.get(playerId), location, figuresCount);
-        notif();
+        NOTIFY();
         return result;
 
     }
@@ -47,7 +50,7 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
             return false;
         }
         boolean result = phaseController.makeAction(players.get(playerId), location, desiredResources, usedResources); //Todo is this the correct way of passing the resources?
-        notif();
+        NOTIFY();
         return result;
     }
 
@@ -57,7 +60,7 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
             return false;
         }
         boolean result = phaseController.skipAction(players.get(playerId), location);
-        notif();
+        NOTIFY();
         return result;
     }
 
@@ -67,7 +70,7 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
             return false;
         }
         boolean result = phaseController.useTools(players.get(playerId), toolIndex);
-        notif();
+        NOTIFY();
         return result;
     }
 
@@ -77,7 +80,7 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
             return false;
         }
         boolean result = phaseController.noMoreToolsThisThrow(players.get(playerId));
-        notif();
+        NOTIFY();
         return result;
     }
 
@@ -87,7 +90,7 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
             return false;
         }
         boolean result = phaseController.feedTribe(players.get(playerId), resources);
-        notif();
+        NOTIFY();
         return result;
     }
 
@@ -97,7 +100,7 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
             return false;
         }
         boolean result = phaseController.doNotFeedThisTurn(players.get(playerId));
-        notif();
+        NOTIFY();
         return result;
     }
 
@@ -107,7 +110,7 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
             return false;
         }
         boolean result = phaseController.makeAllPlayersTakeARewardChoice(players.get(playerId), reward);
-        notif();
+        NOTIFY();
         return result;
     }
 }

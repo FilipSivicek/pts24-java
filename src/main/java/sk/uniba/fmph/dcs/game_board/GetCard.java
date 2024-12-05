@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public class GetCard implements EvaluateCivilisationCardImmediateEffect {
     private final CivilizationCardDeck deck;
+    private int takenCards = 0;
 
     /**
      * @param deck
@@ -31,6 +32,11 @@ public class GetCard implements EvaluateCivilisationCardImmediateEffect {
             return false;
         }
         player.playerBoard().giveEndOfGameEffect(c.get().endOfGameEffect());
+        takenCards++;
         return true;
+    }
+
+    public int getTakenCards(){
+        return takenCards;
     }
 }

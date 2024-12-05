@@ -1,16 +1,12 @@
 package sk.uniba.fmph.dcs.player_board;
 
-import sk.uniba.fmph.dcs.stone_age.Effect;
-import sk.uniba.fmph.dcs.stone_age.EndOfGameEffect;
-import sk.uniba.fmph.dcs.stone_age.InterfaceFeedTribe;
-import sk.uniba.fmph.dcs.stone_age.InterfaceNewTurn;
-import sk.uniba.fmph.dcs.stone_age.InterfacePlayerBoardGameBoard;
+import sk.uniba.fmph.dcs.stone_age.*;
 
 import java.util.Collection;
 import java.util.Optional;
 
 public final class PlayerBoardGameBoardFacade
-        implements InterfaceFeedTribe, InterfaceNewTurn, InterfacePlayerBoardGameBoard {
+        implements InterfaceFeedTribe, InterfaceNewTurn, InterfacePlayerBoardGameBoard, InterfaceGetState {
     private final PlayerBoard playerBoard;
 
     private final int minusPointsForNotFeeding = -10;
@@ -196,5 +192,10 @@ public final class PlayerBoardGameBoardFacade
     @Override
     public int getToolStrength(int index) {
         return playerBoard.getPlayerTools().getToolStrength(index);
+    }
+
+    @Override
+    public String state() {
+        return this.playerBoard.state();
     }
 }
