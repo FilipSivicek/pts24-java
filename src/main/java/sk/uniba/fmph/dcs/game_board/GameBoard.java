@@ -57,9 +57,11 @@ public class GameBoard implements InterfaceGetState {
         else if (effect == Effect.GOLD){
             return (ResourceSource) locations.get(Location.RIVER);
         }
+        else if (effect == Effect.FOOD){
+            return (ResourceSource) locations.get(Location.HUNTING_GROUNDS);
+        }
         return null;
     }
-
 
     /**
      * @return state combined from everything on the game board
