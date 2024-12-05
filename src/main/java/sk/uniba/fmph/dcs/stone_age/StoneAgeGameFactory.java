@@ -9,6 +9,7 @@ import sk.uniba.fmph.dcs.player_board.PlayerBoardGameBoardFacade;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public final class StoneAgeGameFactory {
     private final static int FOOD_IN_HUNTING_GROUNDS = 153;
@@ -124,15 +125,6 @@ public final class StoneAgeGameFactory {
             playerBoardStates.put(i, (InterfaceGetState) playersList.get(i).playerBoard());
         }
 
-        //todo better buildings
-        Building[] buildings = new Building[28];
-        for (int i = 0; i < 28; i++){
-            buildings[i] = new SimpleBuilding(List.of(new Effect[]{Effect.STONE}));
-        }
-
-
-        GameBoard gameBoard = new GameBoard(playersList, buildings);
-
-        return new StoneAgeGame(playersMap, stoneAgeObservable, gamePhaseController, playerBoardStates, (InterfaceGetState) gameBoard);
+        return new StoneAgeGame(playersMap, stoneAgeObservable, gamePhaseController, playerBoardStates, GameBoardFactory.createGameBoard(playersList));
     }
 }
