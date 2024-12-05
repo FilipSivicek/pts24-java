@@ -12,9 +12,10 @@ import java.util.Optional;
 public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
     private int requiredResources;
     private CivilisationCard card;
-    private ArrayList<PlayerOrder> figures;
+    private ArrayList<PlayerOrder> figures = new ArrayList<>();
     private CivilizationCardDeck deck;
     private boolean cardTaken = false;
+    private boolean hasEnded = false;
 
     public CivilizationCardPlace(CivilizationCardDeck deck){
         this.deck = deck;
@@ -29,7 +30,6 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      * @param player
      * @param figureCount
      *this.card = null;
-
      * @return TODO
      */
     @Override
@@ -114,14 +114,21 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public boolean newTurn() {
-        if (!figures.isEmpty()){
-            return false;
+        if (hasEnded){
+            return true;
         }
+        figures = new ArrayList<>();
+        Optional<CivilisationCard> nextCard;
         if (cardTaken){
-            deck.getTop().ifPresent(civilisationCard -> this.card = civilisationCard);
             cardTaken = false;
+            nextCard = deck.getTop();
+            if (nextCard.isEmpty()){
+                hasEnded = true;
+                return true;
+            }
+            card = nextCard.get();
         }
-        return true;
+        return false;
     }
 
     /**
@@ -131,6 +138,6 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
      */
     @Override
     public String state() {
-        return "";
+        return cardTaken + " " + requiredResources + " " + deck.state();
     }
 }
