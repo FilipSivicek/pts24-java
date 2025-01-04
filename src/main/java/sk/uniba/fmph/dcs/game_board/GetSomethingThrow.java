@@ -27,6 +27,7 @@ public final class GetSomethingThrow implements EvaluateCivilisationCardImmediat
             playerFigures = rs.getFiguresCount(player);
         }
 
+
         currentThrow.initiate(player, choice, playerFigures);
         int pocet = currentThrow.getThrowsResult();
         Effect[] res = new Effect[pocet];

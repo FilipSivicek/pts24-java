@@ -9,5 +9,4 @@ import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
  * @param playerBoard
  *            Interface for the player's board in the game
  */
-public record Player(PlayerOrder playerOrder, InterfacePlayerBoardGameBoard playerBoard) {
-}
+public record Player(PlayerOrder playerOrder, InterfacePlayerBoardGameBoard playerBoard) {}

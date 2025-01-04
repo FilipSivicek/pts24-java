@@ -22,11 +22,11 @@ public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEf
      * @param controller
      *            controller to call in performEffect
      */
-    public AllPlayersTakeReward(final RewardMenu menu, final InterfaceGamePhaseController controller) {
+    public AllPlayersTakeReward(final RewardMenu menu, final InterfaceGamePhaseController controller, final RandomInterface randomInterface) {
         this.menu = menu;
         this.controller = controller;
         int n = menu.getPlayersCount();
-        int[] t = Throw.hod(n);
+        int[] t = randomInterface.randomArray(n);
         List<Effect> m = new ArrayList<>();
         for (var i : t) {
             if (i == WOODID) {

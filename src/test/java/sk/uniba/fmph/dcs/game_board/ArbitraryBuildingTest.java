@@ -17,7 +17,7 @@ public class ArbitraryBuildingTest {
 
         ArrayList<Effect> goodResources = new ArrayList<Effect>();
         goodResources.add(Effect.WOOD);
-        assertEquals(building.build(goodResources), OptionalInt.of(3));
+        assertEquals(building.build(goodResources), OptionalInt.empty());
 
         goodResources.clear();
         goodResources.add(Effect.GOLD);

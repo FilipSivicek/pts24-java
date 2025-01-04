@@ -9,7 +9,7 @@ import java.util.*;
 public final class CivilizationCardDeck {
     int givenOutCards = 0;
     int totalCards = 36;
-    Random rand = new Random();
+    Rand rand = new Rand();
     ArrayList<ImmediateEffect> possibleImmediateEffects = new ArrayList<>(List.of(ImmediateEffect.POINT,
             ImmediateEffect.WOOD, ImmediateEffect.CLAY, ImmediateEffect.STONE, ImmediateEffect.GOLD, ImmediateEffect.FOOD));
 
@@ -22,16 +22,20 @@ public final class CivilizationCardDeck {
             return Optional.empty();
         }
         ArrayList<ImmediateEffect> immediateEffects = new ArrayList<>();
-        int amountOfImmediate = rand.nextInt(3) + 1;
+        int amountOfImmediate = rand.randomInt(3) + 1;
         for (int i = 0; i < amountOfImmediate; i++){
-            immediateEffects.add(possibleImmediateEffects.get(rand.nextInt(possibleImmediateEffects.size())));
+            immediateEffects.add(possibleImmediateEffects.get(rand.randomInt(possibleImmediateEffects.size())));
         }
 
         EndOfGameEffect[] endOfGameEffects = new EndOfGameEffect[1];
-        endOfGameEffects[0] = possibleEndOfGameEffects.get(rand.nextInt(possibleEndOfGameEffects.size()));
+        endOfGameEffects[0] = possibleEndOfGameEffects.get(rand.randomInt(possibleEndOfGameEffects.size()));
         CivilisationCard card = new CivilisationCard(immediateEffects.toArray(new ImmediateEffect[0]), endOfGameEffects);
         givenOutCards++;
         return Optional.of(card);
+    }
+
+    public void setRand(Rand rand){
+        this.rand = rand;
     }
 
     public String state() {

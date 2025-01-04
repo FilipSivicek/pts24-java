@@ -1,29 +1,34 @@
 package sk.uniba.fmph.dcs.game_board;
 
-public final class Throw {
-    private static final int DICESIDES = 6;
+public final class Throw implements RandomInterface{
+    private final int diceSides;
 
-    private Throw() {
-        throw new UnsupportedOperationException("Utility class");
+    public Throw(){
+        this.diceSides = 6;
     }
 
-    private static int randomDice() {
-        return (int) (Math.random() * DICESIDES) + 1;
-    }
-
-    /**
-     * renamed to hod so that it won't conflict with compilers.
-     *
-     * @param dices
-     *            number of dices to throw
-     *
-     * @return resulting throws
-     */
-    public static int[] hod(final int dices) {
-        int[] res = new int[dices];
-        for (int i = 0; i < dices; i++) {
-            res[i] = randomDice();
+    public Throw(final int diceSides){
+        if (diceSides < 1){
+            throw new RuntimeException();
         }
-        return res;
+        this.diceSides = diceSides;
+    }
+
+    private int randomDice(){
+        return (int) ((Math.random()%diceSides) + 1);
+    }
+
+    @Override
+    public int randomInt(int bound) {
+        return 0;
+    }
+
+    @Override
+    public int[] randomArray(int dices) {
+        int[] ans = new int[dices];
+        for (int i = 0; i < dices; i++) {
+            ans[i] = randomDice();
+        }
+        return ans;
     }
 }

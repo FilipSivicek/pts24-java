@@ -11,11 +11,19 @@ public final class CurrentThrow implements InterfaceToolUse {
     private Player player;
     private int dices;
 
-    public void initiate(final Player player, final Effect effect, final int dices) {
+    public void initiate(final Player player, final Effect effect, final int dices){
         this.player = player;
         this.throwsFor = effect;
         this.dices = dices;
-        throwsResult = Arrays.stream(Throw.hod(this.dices)).sum();
+        RandomInterface dicesThrow = new Throw();
+        throwsResult = Arrays.stream(dicesThrow.randomArray(this.dices)).sum();
+    }
+
+    public void initiate(final Player player, final Effect effect, final int dices, RandomInterface randomInterface) {
+        this.player = player;
+        this.throwsFor = effect;
+        this.dices = dices;
+        throwsResult = Arrays.stream(randomInterface.randomArray(this.dices)).sum();
     }
 
     @Override
