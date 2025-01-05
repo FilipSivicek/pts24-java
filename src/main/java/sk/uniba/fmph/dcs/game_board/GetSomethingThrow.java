@@ -6,13 +6,12 @@ import java.util.Arrays;
 
 public final class GetSomethingThrow implements EvaluateCivilisationCardImmediateEffect {
     private final Effect resource;
-    private CurrentThrow currentThrow;
-    private GameBoard gameBoard;
-    private int throwResult = 0;
+    private CurrentThrow currentThrow = new CurrentThrow();
+    private ResourceSource resourceSource;
 
-    public GetSomethingThrow(final Effect resource, GameBoard gameBoard) {
+    public GetSomethingThrow(final Effect resource, ResourceSource resourceSource) {
         this.resource = resource;
-        this.gameBoard = gameBoard;
+        this.resourceSource = resourceSource;
     }
 
     @Override
@@ -21,16 +20,14 @@ public final class GetSomethingThrow implements EvaluateCivilisationCardImmediat
             return false;
         }
 
-        ResourceSource rs = gameBoard.getResourceSource(choice);
         int playerFigures = 0;
-        if (rs != null){
-            playerFigures = rs.getFiguresCount(player);
+        if (resourceSource != null){
+            playerFigures = resourceSource.getFiguresCount(player);
         }
 
-
         currentThrow.initiate(player, choice, playerFigures);
-        int pocet = currentThrow.getThrowsResult();
-        Effect[] res = new Effect[pocet];
+        int amount = currentThrow.getThrowsResult();
+        Effect[] res = new Effect[amount];
         Arrays.fill(res, choice);
         player.playerBoard().giveEffect(res);
         return true;

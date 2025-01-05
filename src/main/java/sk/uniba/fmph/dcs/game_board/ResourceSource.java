@@ -11,9 +11,8 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
     private int count;
     private int maxFigures = 7;
     private int maxFigureColors = 4;
-
+    private EvaluateCivilisationCardImmediateEffect eccie;
     private HashSet<PlayerOrder> playersPlaced = new HashSet<>();
-
     private ArrayList<PlayerOrder> figures = new ArrayList<>();
 
     public ResourceSource(final Effect resource, final int count) {
@@ -22,13 +21,14 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
         if (resource == Effect.FOOD){
             maxFigures = Integer.MAX_VALUE;
         }
+        eccie = new GetSomethingThrow(resource, this);
     }
-
 
     public ResourceSource(final Effect resource, final int count, final String name) {
         this.resource = resource;
         this.count = count;
         this.name = name;
+        eccie = new GetSomethingThrow(resource, this);
     }
 
     public int getFiguresCount(Player player){
@@ -114,24 +114,26 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
     public ActionResult makeAction(final Player player, final Effect[] inputResources, final Effect[] outputResources) {
         int size = figures.size();
 
-        boolean hasFigure = false;
+        int numberOfFigures = 0;
 
-        for (PlayerOrder figure: figures){
+        for (var figure: figures){
             if (figure.getOrder() == player.playerOrder().getOrder()){
-                hasFigure = true;
-                break;
+                numberOfFigures++;
             }
         }
 
-        if (!hasFigure){
+        if (numberOfFigures == 0){
             return ActionResult.FAILURE;
         }
 
-        for (int i = size-1; i >= 0; i--){
+        eccie.performEffect(player, resource);
+
+        for (int i = size - 1; i >= 0 ; i--) {
             if (figures.get(i).getOrder() == player.playerOrder().getOrder()){
                 figures.remove(i);
             }
         }
+
         return ActionResult.ACTION_DONE;
     }
 

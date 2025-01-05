@@ -9,7 +9,7 @@ import java.util.*;
 public final class CivilizationCardDeck {
     int givenOutCards = 0;
     int totalCards = 36;
-    Rand rand = new Rand();
+    RandomInterface rand = new Rand();
     ArrayList<ImmediateEffect> possibleImmediateEffects = new ArrayList<>(List.of(ImmediateEffect.POINT,
             ImmediateEffect.WOOD, ImmediateEffect.CLAY, ImmediateEffect.STONE, ImmediateEffect.GOLD, ImmediateEffect.FOOD));
 
@@ -34,7 +34,7 @@ public final class CivilizationCardDeck {
         return Optional.of(card);
     }
 
-    public void setRand(Rand rand){
+    public void setRand(RandomInterface rand){
         this.rand = rand;
     }
 
