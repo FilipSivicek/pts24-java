@@ -2,18 +2,51 @@ package sk.uniba.fmph.dcs.game_board;
 
 import org.junit.Before;
 import org.junit.Test;
-import sk.uniba.fmph.dcs.player_board.PlayerBoardFactory;
-import sk.uniba.fmph.dcs.player_board.PlayerBoardGameBoardFacade;
-import sk.uniba.fmph.dcs.stone_age.ActionResult;
-import sk.uniba.fmph.dcs.stone_age.Effect;
-import sk.uniba.fmph.dcs.stone_age.HasAction;
-import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
+import sk.uniba.fmph.dcs.stone_age.*;
+
+import java.util.Optional;
 
 public class ResourceSourceTest {
-    PlayerBoardGameBoardFacade p1boardFacade;
-    PlayerBoardGameBoardFacade p2boardFacade;
-    PlayerBoardGameBoardFacade p3boardFacade;
-    PlayerBoardGameBoardFacade p4boardFacade;
+
+    private class InterfacePlayerBoardMock implements InterfacePlayerBoardGameBoard{
+
+        public InterfacePlayerBoardMock(){};
+
+        @Override
+        public void giveEffect(Effect[] stuff) {}
+
+        @Override
+        public void giveEndOfGameEffect(EndOfGameEffect[] stuff) {}
+
+        @Override
+        public boolean takeResources(Effect[] stuff) {return false;}
+
+        @Override
+        public void giveFigure() {}
+
+        @Override
+        public boolean takeFigures(int count) {return false;}
+
+        @Override
+        public boolean hasFigures(int count) {return false;}
+
+        @Override
+        public void addPoints(int points) {}
+
+        @Override
+        public boolean hasSufficientTools(int goal) {return false;}
+
+        @Override
+        public Optional<Integer> useTool(int idx) {return Optional.empty();}
+
+        @Override
+        public int getToolStrength(int index) {return 0;}
+    }
+
+    InterfacePlayerBoardGameBoard p2boardFacade;
+    InterfacePlayerBoardGameBoard p1boardFacade;
+    InterfacePlayerBoardGameBoard p3boardFacade;
+    InterfacePlayerBoardGameBoard p4boardFacade;
     ResourceSource source4;
     PlayerOrder po4;
     Player p1;
@@ -21,16 +54,15 @@ public class ResourceSourceTest {
     Player p3;
     Player p4;
 
-
     @Before
     public void setUp(){
         source4 = new ResourceSource(Effect.WOOD, 27);
         po4 = new PlayerOrder(0 ,4);
 
-        p1boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
-        p2boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
-        p3boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
-        p4boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
+        p1boardFacade = new InterfacePlayerBoardMock();
+        p2boardFacade = new InterfacePlayerBoardMock();
+        p3boardFacade = new InterfacePlayerBoardMock();
+        p4boardFacade = new InterfacePlayerBoardMock();
 
         p1 = new Player(po4, p1boardFacade);
         po4 = po4.forward();
@@ -40,7 +72,6 @@ public class ResourceSourceTest {
         po4 = po4.forward();
         p4 = new Player(po4, p4boardFacade);
         po4 = po4.forward();
-
     }
 
     @Test
@@ -58,9 +89,9 @@ public class ResourceSourceTest {
         ans = source4.placeFigures(p4, 0);
         assert ans;
 
-        p1boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
-        p2boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
-        p3boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
+        p1boardFacade = new InterfacePlayerBoardMock();
+        p2boardFacade = new InterfacePlayerBoardMock();
+        p3boardFacade = new InterfacePlayerBoardMock();
 
         PlayerOrder po3 = new PlayerOrder(0, 3);
         p1 = new Player(po3, p1boardFacade);
@@ -85,8 +116,8 @@ public class ResourceSourceTest {
         ans = source3.placeFigures(p2, 1);
         assert !ans;
 
-        p1boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
-        p2boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
+        p1boardFacade = new InterfacePlayerBoardMock();
+        p2boardFacade = new InterfacePlayerBoardMock();
         PlayerOrder po2 = new PlayerOrder(0, 2);
 
         p1 = new Player(po2, p1boardFacade);
@@ -103,8 +134,7 @@ public class ResourceSourceTest {
         ans = source2.placeFigures(p1, 4);
         assert ans;
     }
-
-
+    
     @Test
     public void tryToPlaceFigureTest(){
         HasAction ans = source4.tryToPlaceFigures(p1, 2);
@@ -121,9 +151,9 @@ public class ResourceSourceTest {
         ans = source4.tryToPlaceFigures(p4, 0);
         assert ans == HasAction.WAITING_FOR_PLAYER_ACTION;
 
-        p1boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
-        p2boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
-        p3boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
+        p1boardFacade = new InterfacePlayerBoardMock();
+        p2boardFacade = new InterfacePlayerBoardMock();
+        p3boardFacade = new InterfacePlayerBoardMock();
 
         PlayerOrder po3 = new PlayerOrder(0, 3);
         p1 = new Player(po3, p1boardFacade);
@@ -151,8 +181,8 @@ public class ResourceSourceTest {
         ans = source3.tryToPlaceFigures(p2, 1);
         assert ans == HasAction.NO_ACTION_POSSIBLE;
 
-        p1boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
-        p2boardFacade = PlayerBoardFactory.createDefaultPlayerBoard().getValue();
+        p1boardFacade = new InterfacePlayerBoardMock();
+        p2boardFacade = new InterfacePlayerBoardMock();
         PlayerOrder po2 = new PlayerOrder(0, 2);
 
         p1 = new Player(po2, p1boardFacade);

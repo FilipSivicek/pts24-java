@@ -5,7 +5,7 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 
 public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
-    private int requiredResources;
+    private int requiredResources = 0;
     private int figure = -1;
     private GetCard getCard;
 
