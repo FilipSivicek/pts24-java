@@ -16,7 +16,7 @@ public class CivilizationCardPlaceTest {
     Player player;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         cdc = new CivilizationCardDeck();
         GetCard getCard = new GetCard(cdc);
         place = new CivilizationCardPlace(getCard);
@@ -26,9 +26,8 @@ public class CivilizationCardPlaceTest {
 
     }
 
-
     @Test
-    public void placeFiguresTest(){
+    public void placeFiguresTest() {
         CivilizationCardDeck cdc = new CivilizationCardDeck();
         GetCard getCard = new GetCard(cdc);
         CivilizationCardPlace place = new CivilizationCardPlace(getCard);
@@ -51,7 +50,7 @@ public class CivilizationCardPlaceTest {
     }
 
     @Test
-    public void tryToPlaceFiguresTest(){
+    public void tryToPlaceFiguresTest() {
         HasAction ans = place.tryToPlaceFigures(player, 2);
         assert ans == HasAction.NO_ACTION_POSSIBLE;
 
@@ -68,9 +67,11 @@ public class CivilizationCardPlaceTest {
     }
 
     @Test
-    public void makeActionTest(){
+    public void makeActionTest() {
         place.placeFigures(player, 1);
-        ActionResult ans = place.makeAction(new Player(new PlayerOrder(1, 4), PlayerBoardFactory.createDefaultPlayerBoard().getValue()), null, null);
+        ActionResult ans = place.makeAction(
+                new Player(new PlayerOrder(1, 4), PlayerBoardFactory.createDefaultPlayerBoard().getValue()), null,
+                null);
         assert ans == ActionResult.FAILURE;
 
         ans = place.makeAction(player, null, null);
@@ -86,7 +87,7 @@ public class CivilizationCardPlaceTest {
     }
 
     @Test
-    public void skipActionTest(){
+    public void skipActionTest() {
         boolean ans = place.skipAction(player);
         assert !ans;
 
@@ -94,14 +95,16 @@ public class CivilizationCardPlaceTest {
         ans = place.skipAction(player);
         assert ans;
 
-        ans = place.skipAction(new Player(new PlayerOrder(1, 4), PlayerBoardFactory.createDefaultPlayerBoard().getValue()));
+        ans = place.skipAction(
+                new Player(new PlayerOrder(1, 4), PlayerBoardFactory.createDefaultPlayerBoard().getValue()));
         assert !ans;
     }
 
     @Test
-    public void tryToMakeActionTest(){
+    public void tryToMakeActionTest() {
         place.placeFigures(player, 1);
-        HasAction ans = place.tryToMakeAction(new Player(new PlayerOrder(1, 4), PlayerBoardFactory.createDefaultPlayerBoard().getValue()));
+        HasAction ans = place.tryToMakeAction(
+                new Player(new PlayerOrder(1, 4), PlayerBoardFactory.createDefaultPlayerBoard().getValue()));
         assert ans == HasAction.NO_ACTION_POSSIBLE;
 
         ans = place.tryToMakeAction(player);
@@ -118,9 +121,9 @@ public class CivilizationCardPlaceTest {
     }
 
     @Test
-    public void newTurnTest(){
+    public void newTurnTest() {
         boolean ans;
-        for (int i = 0; i < 35; i++){
+        for (int i = 0; i < 35; i++) {
             place.placeFigures(player, 1);
             place.makeAction(player, null, null);
             ans = place.newTurn();
@@ -130,7 +133,7 @@ public class CivilizationCardPlaceTest {
         place.placeFigures(player, 1);
         place.makeAction(player, null, null);
 
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 100; i++) {
             ans = place.newTurn();
             assert ans;
         }

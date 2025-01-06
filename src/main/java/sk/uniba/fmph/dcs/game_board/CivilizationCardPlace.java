@@ -9,15 +9,16 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
     private int figure = -1;
     private GetCard getCard;
 
-    public CivilizationCardPlace(GetCard getCard){
+    public CivilizationCardPlace(GetCard getCard) {
         this.getCard = getCard;
     }
 
-    public CivilizationCardPlace(){}
+    public CivilizationCardPlace() {
+    }
 
     @Override
     public boolean placeFigures(final Player player, final int figureCount) {
-        if (figure > -1 || figureCount > 1){
+        if (figure > -1 || figureCount > 1) {
             return false;
         }
         figure = player.playerOrder().getOrder();
@@ -26,7 +27,7 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
 
     @Override
     public HasAction tryToPlaceFigures(final Player player, final int figureCount) {
-        if (figure > -1 || figureCount > 1){
+        if (figure > -1 || figureCount > 1) {
             return HasAction.NO_ACTION_POSSIBLE;
         }
         return HasAction.WAITING_FOR_PLAYER_ACTION;
@@ -34,17 +35,17 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
 
     @Override
     public ActionResult makeAction(final Player player, final Effect[] inputResources, final Effect[] outputResources) {
-        if (figure != player.playerOrder().getOrder()){
+        if (figure != player.playerOrder().getOrder()) {
             return ActionResult.FAILURE;
         }
         figure = -1;
-        getCard.performEffect(player,null);
+        getCard.performEffect(player, null);
         return ActionResult.ACTION_DONE;
     }
 
     @Override
     public boolean skipAction(final Player player) {
-        if (figure != player.playerOrder().getOrder()){
+        if (figure != player.playerOrder().getOrder()) {
             return false;
         }
         figure = -1;
@@ -53,7 +54,7 @@ public class CivilizationCardPlace implements InterfaceFigureLocationInternal {
 
     @Override
     public HasAction tryToMakeAction(final Player player) {
-        if (figure != player.playerOrder().getOrder()){
+        if (figure != player.playerOrder().getOrder()) {
             return HasAction.NO_ACTION_POSSIBLE;
         }
         return HasAction.WAITING_FOR_PLAYER_ACTION;

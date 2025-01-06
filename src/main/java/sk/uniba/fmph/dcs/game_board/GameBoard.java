@@ -44,20 +44,16 @@ public class GameBoard implements InterfaceGetState {
         locations.put(Location.CIVILISATION_CARD4, new CivilizationCardPlace());
     }
 
-    public ResourceSource getResourceSource(Effect effect){
-        if (effect == Effect.WOOD){
+    public ResourceSource getResourceSource(Effect effect) {
+        if (effect == Effect.WOOD) {
             return (ResourceSource) locations.get(Location.FOREST);
-        }
-        else if (effect == Effect.CLAY){
+        } else if (effect == Effect.CLAY) {
             return (ResourceSource) locations.get(Location.CLAY_MOUND);
-        }
-        else if (effect == Effect.STONE){
+        } else if (effect == Effect.STONE) {
             return (ResourceSource) locations.get(Location.QUARRY);
-        }
-        else if (effect == Effect.GOLD){
+        } else if (effect == Effect.GOLD) {
             return (ResourceSource) locations.get(Location.RIVER);
-        }
-        else if (effect == Effect.FOOD){
+        } else if (effect == Effect.FOOD) {
             return (ResourceSource) locations.get(Location.HUNTING_GROUNDS);
         }
         return null;

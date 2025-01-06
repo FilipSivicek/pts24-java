@@ -65,7 +65,7 @@ public class ToolMakerHutsFields {
         if (!toolMakerFigures.getFirst().equals(player.playerOrder())) {
             return false;
         }
-        player.playerBoard().giveEffect(new Effect[] {Effect.TOOL});
+        player.playerBoard().giveEffect(new Effect[] { Effect.TOOL });
         return true;
     }
 
@@ -156,7 +156,7 @@ public class ToolMakerHutsFields {
         if (!fieldsFigures.getFirst().equals(player.playerOrder())) {
             return false;
         }
-        player.playerBoard().giveEffect(new Effect[] {Effect.FIELD});
+        player.playerBoard().giveEffect(new Effect[] { Effect.FIELD });
         return false;
     }
 

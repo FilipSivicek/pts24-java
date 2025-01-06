@@ -8,9 +8,9 @@ import java.util.Map;
 public class PlayerCivilisationCards {
 
     private Map<EndOfGameEffect, Integer> endOfGameEffects;
-    private final EndOfGameEffect[] greenBackGround = {EndOfGameEffect.MEDICINE, EndOfGameEffect.ART,
+    private final EndOfGameEffect[] greenBackGround = { EndOfGameEffect.MEDICINE, EndOfGameEffect.ART,
             EndOfGameEffect.WRITING, EndOfGameEffect.POTTERY, EndOfGameEffect.SUNDIAL, EndOfGameEffect.TRANSPORT,
-            EndOfGameEffect.MUSIC, EndOfGameEffect.WEAVING};
+            EndOfGameEffect.MUSIC, EndOfGameEffect.WEAVING };
 
     /**
      * Initialization.

@@ -18,7 +18,7 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
     public ResourceSource(final Effect resource, final int count) {
         this.resource = resource;
         this.count = count;
-        if (resource == Effect.FOOD){
+        if (resource == Effect.FOOD) {
             maxFigures = Integer.MAX_VALUE;
         }
         eccie = new GetSomethingThrow(resource, this);
@@ -31,10 +31,10 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
         eccie = new GetSomethingThrow(resource, this);
     }
 
-    public int getFiguresCount(Player player){
+    public int getFiguresCount(Player player) {
         int ans = 0;
-        for (PlayerOrder po: figures){
-            if (po.getOrder() == player.playerOrder().getOrder()){
+        for (PlayerOrder po : figures) {
+            if (po.getOrder() == player.playerOrder().getOrder()) {
                 ans++;
             }
         }
@@ -51,28 +51,28 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
      */
     @Override
     public boolean placeFigures(final Player player, final int figureCount) {
-        if (player.playerOrder().getPlayers() == 3){
+        if (player.playerOrder().getPlayers() == 3) {
             maxFigureColors = 2;
-        }
-        else if (player.playerOrder().getPlayers() == 2){
+        } else if (player.playerOrder().getPlayers() == 2) {
             maxFigureColors = 1;
         }
 
-        if (figures.size() + figureCount > maxFigures){
+        if (figures.size() + figureCount > maxFigures) {
             return false;
         }
 
-        if (playersPlaced.size() >= maxFigureColors && !playersPlaced.contains(player.playerOrder())){
+        if (playersPlaced.size() >= maxFigureColors && !playersPlaced.contains(player.playerOrder())) {
             return false;
         }
 
         playersPlaced.add(player.playerOrder());
-        for (int i = 0; i < figureCount; i++){
+        for (int i = 0; i < figureCount; i++) {
             figures.add(player.playerOrder());
         }
 
         return true;
     }
+
     /**
      * TODO.
      *
@@ -83,18 +83,17 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
      */
     @Override
     public HasAction tryToPlaceFigures(final Player player, final int count) {
-        if (player.playerOrder().getPlayers() == 3){
+        if (player.playerOrder().getPlayers() == 3) {
             maxFigureColors = 2;
-        }
-        else if (player.playerOrder().getPlayers() == 2){
+        } else if (player.playerOrder().getPlayers() == 2) {
             maxFigureColors = 1;
         }
 
-        if (figures.size() + count > maxFigures){
+        if (figures.size() + count > maxFigures) {
             return HasAction.NO_ACTION_POSSIBLE;
         }
 
-        if (playersPlaced.size() >= maxFigureColors && !playersPlaced.contains(player.playerOrder())){
+        if (playersPlaced.size() >= maxFigureColors && !playersPlaced.contains(player.playerOrder())) {
             return HasAction.NO_ACTION_POSSIBLE;
         }
 
@@ -116,20 +115,20 @@ public class ResourceSource implements InterfaceFigureLocationInternal {
 
         int numberOfFigures = 0;
 
-        for (var figure: figures){
-            if (figure.getOrder() == player.playerOrder().getOrder()){
+        for (var figure : figures) {
+            if (figure.getOrder() == player.playerOrder().getOrder()) {
                 numberOfFigures++;
             }
         }
 
-        if (numberOfFigures == 0){
+        if (numberOfFigures == 0) {
             return ActionResult.FAILURE;
         }
 
         eccie.performEffect(player, resource);
 
-        for (int i = size - 1; i >= 0 ; i--) {
-            if (figures.get(i).getOrder() == player.playerOrder().getOrder()){
+        for (int i = size - 1; i >= 0; i--) {
+            if (figures.get(i).getOrder() == player.playerOrder().getOrder()) {
                 figures.remove(i);
             }
         }

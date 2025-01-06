@@ -17,40 +17,40 @@ class MockClass implements InterfaceFigureLocation, InterfaceFeedTribe, Interfac
         hasActionExpected = new LinkedList<>();
         for (char c : hasAction.toCharArray()) {
             switch (c) {
-                case 'w':
-                    hasActionExpected.addLast(HasAction.WAITING_FOR_PLAYER_ACTION);
-                    break;
-                case 'n':
-                    hasActionExpected.addLast(HasAction.NO_ACTION_POSSIBLE);
-                    break;
-                case 'a':
-                    hasActionExpected.addLast(HasAction.AUTOMATIC_ACTION_DONE);
+            case 'w':
+                hasActionExpected.addLast(HasAction.WAITING_FOR_PLAYER_ACTION);
+                break;
+            case 'n':
+                hasActionExpected.addLast(HasAction.NO_ACTION_POSSIBLE);
+                break;
+            case 'a':
+                hasActionExpected.addLast(HasAction.AUTOMATIC_ACTION_DONE);
             }
         }
         actionResultExpected = new LinkedList<>();
         for (char c : actionResult.toCharArray()) {
             switch (c) {
-                case 'F':
-                    actionResultExpected.addLast(ActionResult.FAILURE);
-                    break;
-                case 'D':
-                    actionResultExpected.addLast(ActionResult.ACTION_DONE);
-                    break;
-                case 'T':
-                    actionResultExpected.addLast(ActionResult.ACTION_DONE_WAIT_FOR_TOOL_USE);
-                    break;
-                case 'R':
-                    actionResultExpected.addLast(ActionResult.ACTION_DONE_ALL_PLAYERS_TAKE_A_REWARD);
+            case 'F':
+                actionResultExpected.addLast(ActionResult.FAILURE);
+                break;
+            case 'D':
+                actionResultExpected.addLast(ActionResult.ACTION_DONE);
+                break;
+            case 'T':
+                actionResultExpected.addLast(ActionResult.ACTION_DONE_WAIT_FOR_TOOL_USE);
+                break;
+            case 'R':
+                actionResultExpected.addLast(ActionResult.ACTION_DONE_ALL_PLAYERS_TAKE_A_REWARD);
             }
         }
         booleanExpected = new LinkedList<>();
         for (char c : bool.toCharArray()) {
             switch (c) {
-                case 'y':
-                    booleanExpected.addLast(true);
-                    break;
-                case 'n':
-                    booleanExpected.addLast(false);
+            case 'y':
+                booleanExpected.addLast(true);
+                break;
+            case 'n':
+                booleanExpected.addLast(false);
             }
         }
     }
@@ -110,7 +110,8 @@ class MockClass implements InterfaceFigureLocation, InterfaceFeedTribe, Interfac
     }
 
     @Override
-    public ActionResult makeAction(PlayerOrder player, Collection<Effect> inputResources, Collection<Effect> outputResources) {
+    public ActionResult makeAction(PlayerOrder player, Collection<Effect> inputResources,
+            Collection<Effect> outputResources) {
         return returnActionResult();
     }
 
@@ -173,7 +174,7 @@ public class IntegrationTest {
         PlayerOrder p3 = new PlayerOrder(2, 4);
         PlayerOrder p4 = new PlayerOrder(3, 4);
 
-        // expected answers from mock class, ' ' 
+        // expected answers from mock class, ' '
         String hasAction = "wwannnnnnnnwnnwwwwannnwnnwnnnnnnnnw aaannnnnnnnnwnnnnnnnnnn";
         String actionResult = "TRDD D";
         String bool = "yyyynyyyynyyyynnynnynnynnynyyyyynn nynnnynnynnynnyyyyyny";
@@ -204,7 +205,8 @@ public class IntegrationTest {
         interfaceNewTurnMap.put(p4, interfaceNewTurn);
 
         // test first round, initialize new round
-        GamePhaseController gpc = GamePhaseControllerFactory.createGamePhaseController(everything, feedTribeMap, places, interfaceNewTurnMap, interfaceToolUseCollection, p1);
+        GamePhaseController gpc = GamePhaseControllerFactory.createGamePhaseController(everything, feedTribeMap, places,
+                interfaceNewTurnMap, interfaceToolUseCollection, p1);
         assertTrue(gpc.placeFigures(p1, Location.BUILDING_TILE1, 1));
         assertTrue(gpc.placeFigures(p2, Location.TOOL_MAKER, 1));
         assertTrue(gpc.placeFigures(p3, Location.BUILDING_TILE1, 1));

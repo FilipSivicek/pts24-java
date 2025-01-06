@@ -92,7 +92,7 @@ public class RewardMenu implements InterfaceTakeReward {
         }
         playersLeft.remove(player);
         menu.remove(reward);
-        p.playerBoard().giveEffect(new Effect[] {reward});
+        p.playerBoard().giveEffect(new Effect[] { reward });
         return true;
     }
 

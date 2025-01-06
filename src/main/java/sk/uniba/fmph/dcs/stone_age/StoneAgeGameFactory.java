@@ -18,30 +18,31 @@ public final class StoneAgeGameFactory {
     private final static int STONE_IN_QUARRY = 12;
     private final static int GOLD_IN_RIVER = 10;
 
-    private StoneAgeGameFactory() {}
+    private StoneAgeGameFactory() {
+    }
 
-    public static StoneAgeGame createDefaultStoneAgeGame(int numberOfPlayers){
-        if (numberOfPlayers < 2 || numberOfPlayers > 4){
+    public static StoneAgeGame createDefaultStoneAgeGame(int numberOfPlayers) {
+        if (numberOfPlayers < 2 || numberOfPlayers > 4) {
             throw new RuntimeException("Invalid number of players");
         }
 
         PlayerOrder po = new PlayerOrder(0, numberOfPlayers);
         HashMap<Integer, PlayerOrder> playersMap = new HashMap<>();
         ArrayList<Player> playersList = new ArrayList<>();
-        for (int i = 0; i < numberOfPlayers; i++){
+        for (int i = 0; i < numberOfPlayers; i++) {
             playersList.add(new Player(po, PlayerBoardFactory.createDefaultPlayerBoard().getValue()));
             playersMap.put(i, po);
             po = po.forward();
         }
         StoneAgeObservable stoneAgeObservable = new StoneAgeObservable();
 
-        ArrayList<Effect> effects = new ArrayList<>(List.of(Effect.FOOD, Effect.WOOD, Effect.CLAY, Effect.STONE,
-                Effect.GOLD, Effect.FIELD, Effect.BUILDING, Effect.TOOL, Effect.ONE_TIME_TOOL2, Effect.ONE_TIME_TOOL3,
-                Effect.ONE_TIME_TOOL4));
+        ArrayList<Effect> effects = new ArrayList<>(
+                List.of(Effect.FOOD, Effect.WOOD, Effect.CLAY, Effect.STONE, Effect.GOLD, Effect.FIELD, Effect.BUILDING,
+                        Effect.TOOL, Effect.ONE_TIME_TOOL2, Effect.ONE_TIME_TOOL3, Effect.ONE_TIME_TOOL4));
         InterfaceTakeReward takeReward = new RewardMenu(effects, playersList);
 
         HashMap<PlayerOrder, InterfaceFeedTribe> feedTribe = new HashMap<>();
-        for (int i = 0; i < numberOfPlayers; i++){
+        for (int i = 0; i < numberOfPlayers; i++) {
             feedTribe.put(po, new PlayerBoardGameBoardFacade((PlayerBoard) playersList.get(i).playerBoard()));
             po = po.forward();
         }
@@ -72,7 +73,8 @@ public final class StoneAgeGameFactory {
         places.put(Location.CIVILISATION_CARD3, civCard3);
         places.put(Location.CIVILISATION_CARD4, civCard4);
 
-        InterfaceFigureLocationInternal huntingGroundsInternal = new ResourceSource(Effect.FOOD,FOOD_IN_HUNTING_GROUNDS);
+        InterfaceFigureLocationInternal huntingGroundsInternal = new ResourceSource(Effect.FOOD,
+                FOOD_IN_HUNTING_GROUNDS);
         InterfaceFigureLocation huntingGrounds = new FigureLocationAdaptor(huntingGroundsInternal, playersList);
         places.put(Location.HUNTING_GROUNDS, huntingGrounds);
 
@@ -106,25 +108,27 @@ public final class StoneAgeGameFactory {
         places.put(Location.TOOL_MAKER, toolmaker);
 
         HashMap<PlayerOrder, InterfaceNewTurn> playerBoardMap = new HashMap<>();
-        for (int i = 0; i < numberOfPlayers; i++){
+        for (int i = 0; i < numberOfPlayers; i++) {
             playerBoardMap.put(po, (PlayerBoardGameBoardFacade) playersList.get(i).playerBoard());
             po = po.forward();
         }
 
         HashMap<PlayerOrder, InterfaceToolUse> toolUse = new HashMap<>();
         CurrentThrow ct = new CurrentThrow();
-        for (int i = 0; i < numberOfPlayers; i++){
+        for (int i = 0; i < numberOfPlayers; i++) {
             toolUse.put(po, ct);
             po = po.forward();
         }
 
-        InterfaceGamePhaseController gamePhaseController = GamePhaseControllerFactory.createGamePhaseController(takeReward, feedTribe, places, playerBoardMap, toolUse, po);
+        InterfaceGamePhaseController gamePhaseController = GamePhaseControllerFactory
+                .createGamePhaseController(takeReward, feedTribe, places, playerBoardMap, toolUse, po);
 
         HashMap<Integer, InterfaceGetState> playerBoardStates = new HashMap<>();
-        for (int i = 0; i < numberOfPlayers; i++){
+        for (int i = 0; i < numberOfPlayers; i++) {
             playerBoardStates.put(i, (InterfaceGetState) playersList.get(i).playerBoard());
         }
 
-        return new StoneAgeGame(playersMap, stoneAgeObservable, gamePhaseController, playerBoardStates, GameBoardFactory.createGameBoard(playersList));
+        return new StoneAgeGame(playersMap, stoneAgeObservable, gamePhaseController, playerBoardStates,
+                GameBoardFactory.createGameBoard(playersList));
     }
 }

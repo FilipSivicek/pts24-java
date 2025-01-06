@@ -8,17 +8,16 @@ import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 
 public class CurrentThrowTest {
     @Test
-    public void useToolTest(){
+    public void useToolTest() {
         CurrentThrow ct = new CurrentThrow();
         PlayerOrder po = new PlayerOrder(0, 4);
         PlayerBoard pb = new PlayerBoard();
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             pb.getPlayerTools().addTool();
             pb.newTurn();
         }
 
         Player p1 = new Player(po, new PlayerBoardGameBoardFacade(pb));
-
 
         for (int i = 0; i < 50; i++) {
             ct.initiate(p1, Effect.FOOD, 5);
@@ -36,11 +35,11 @@ public class CurrentThrowTest {
     }
 
     @Test
-    public void canUseToolsTest(){
+    public void canUseToolsTest() {
         CurrentThrow ct = new CurrentThrow();
         PlayerOrder po = new PlayerOrder(0, 4);
         PlayerBoard pb = new PlayerBoard();
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             pb.getPlayerTools().addTool();
             pb.newTurn();
         }
@@ -60,7 +59,7 @@ public class CurrentThrowTest {
 
         pb.getPlayerTools().useTool(2);
 
-        assert ! ct.canUseTools();
+        assert !ct.canUseTools();
 
         pb.newTurn();
 
@@ -68,11 +67,11 @@ public class CurrentThrowTest {
     }
 
     @Test
-    public void finishUsingToolsTest(){
+    public void finishUsingToolsTest() {
         CurrentThrow ct = new CurrentThrow();
         PlayerOrder po = new PlayerOrder(0, 4);
         PlayerBoard pb = new PlayerBoard();
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             pb.getPlayerTools().addTool();
             pb.newTurn();
         }
@@ -80,19 +79,19 @@ public class CurrentThrowTest {
         Player p1 = new Player(po, new PlayerBoardGameBoardFacade(pb));
         ct.initiate(p1, Effect.FOOD, 5);
 
-        assert  !ct.finishUsingTools();
+        assert !ct.finishUsingTools();
 
         pb.getPlayerTools().useTool(0);
 
-        assert  !ct.finishUsingTools();
+        assert !ct.finishUsingTools();
 
         pb.getPlayerTools().useTool(1);
 
-        assert  !ct.finishUsingTools();
+        assert !ct.finishUsingTools();
 
         pb.getPlayerTools().useTool(2);
 
-        assert  ct.finishUsingTools();
+        assert ct.finishUsingTools();
 
         pb.newTurn();
 

@@ -2,9 +2,10 @@ package sk.uniba.fmph.dcs.game_board;
 
 import java.util.Random;
 
-public class Rand implements RandomInterface{
+public class Rand implements RandomInterface {
     Random random;
-    public Rand(){
+
+    public Rand() {
         random = new Random();
     }
 

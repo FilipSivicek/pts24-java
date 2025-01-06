@@ -21,7 +21,7 @@ public final class GetSomethingThrow implements EvaluateCivilisationCardImmediat
         }
 
         int playerFigures = 0;
-        if (resourceSource != null){
+        if (resourceSource != null) {
             playerFigures = resourceSource.getFiguresCount(player);
         }
 

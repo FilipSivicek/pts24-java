@@ -8,39 +8,56 @@ import java.util.Optional;
 
 public class ResourceSourceTest {
 
-    private class InterfacePlayerBoardMock implements InterfacePlayerBoardGameBoard{
+    private class InterfacePlayerBoardMock implements InterfacePlayerBoardGameBoard {
 
-        public InterfacePlayerBoardMock(){};
-
-        @Override
-        public void giveEffect(Effect[] stuff) {}
+        public InterfacePlayerBoardMock() {
+        };
 
         @Override
-        public void giveEndOfGameEffect(EndOfGameEffect[] stuff) {}
+        public void giveEffect(Effect[] stuff) {
+        }
 
         @Override
-        public boolean takeResources(Effect[] stuff) {return false;}
+        public void giveEndOfGameEffect(EndOfGameEffect[] stuff) {
+        }
 
         @Override
-        public void giveFigure() {}
+        public boolean takeResources(Effect[] stuff) {
+            return false;
+        }
 
         @Override
-        public boolean takeFigures(int count) {return false;}
+        public void giveFigure() {
+        }
 
         @Override
-        public boolean hasFigures(int count) {return false;}
+        public boolean takeFigures(int count) {
+            return false;
+        }
 
         @Override
-        public void addPoints(int points) {}
+        public boolean hasFigures(int count) {
+            return false;
+        }
 
         @Override
-        public boolean hasSufficientTools(int goal) {return false;}
+        public void addPoints(int points) {
+        }
 
         @Override
-        public Optional<Integer> useTool(int idx) {return Optional.empty();}
+        public boolean hasSufficientTools(int goal) {
+            return false;
+        }
 
         @Override
-        public int getToolStrength(int index) {return 0;}
+        public Optional<Integer> useTool(int idx) {
+            return Optional.empty();
+        }
+
+        @Override
+        public int getToolStrength(int index) {
+            return 0;
+        }
     }
 
     InterfacePlayerBoardGameBoard p2boardFacade;
@@ -55,9 +72,9 @@ public class ResourceSourceTest {
     Player p4;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         source4 = new ResourceSource(Effect.WOOD, 27);
-        po4 = new PlayerOrder(0 ,4);
+        po4 = new PlayerOrder(0, 4);
 
         p1boardFacade = new InterfacePlayerBoardMock();
         p2boardFacade = new InterfacePlayerBoardMock();
@@ -75,7 +92,7 @@ public class ResourceSourceTest {
     }
 
     @Test
-    public void placeFigureTest(){
+    public void placeFigureTest() {
 
         boolean ans = source4.placeFigures(p1, 2);
         assert ans;
@@ -134,9 +151,9 @@ public class ResourceSourceTest {
         ans = source2.placeFigures(p1, 4);
         assert ans;
     }
-    
+
     @Test
-    public void tryToPlaceFigureTest(){
+    public void tryToPlaceFigureTest() {
         HasAction ans = source4.tryToPlaceFigures(p1, 2);
         assert ans == HasAction.WAITING_FOR_PLAYER_ACTION;
         source4.placeFigures(p1, 2);
@@ -203,9 +220,9 @@ public class ResourceSourceTest {
     }
 
     @Test
-    public void makeActionTest(){
+    public void makeActionTest() {
         ActionResult ans = source4.makeAction(p1, null, null);
-        assert  ans == ActionResult.FAILURE;
+        assert ans == ActionResult.FAILURE;
 
         source4.placeFigures(p2, 5);
         ans = source4.makeAction(p2, null, null);
@@ -213,7 +230,7 @@ public class ResourceSourceTest {
 
         source4.placeFigures(p3, 7);
         ans = source4.makeAction(p3, null, null);
-        assert  ans == ActionResult.ACTION_DONE;
+        assert ans == ActionResult.ACTION_DONE;
 
         source4.placeFigures(p4, 10);
         ans = source4.makeAction(p4, null, null);
@@ -221,7 +238,7 @@ public class ResourceSourceTest {
     }
 
     @Test
-    public void tryToMakeActionTest(){
+    public void tryToMakeActionTest() {
         HasAction ans = source4.tryToMakeAction(p1);
         assert ans == HasAction.NO_ACTION_POSSIBLE;
 

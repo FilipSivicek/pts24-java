@@ -22,7 +22,8 @@ public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEf
      * @param controller
      *            controller to call in performEffect
      */
-    public AllPlayersTakeReward(final RewardMenu menu, final InterfaceGamePhaseController controller, final RandomInterface randomInterface) {
+    public AllPlayersTakeReward(final RewardMenu menu, final InterfaceGamePhaseController controller,
+            final RandomInterface randomInterface) {
         this.menu = menu;
         this.controller = controller;
         int n = menu.getPlayersCount();

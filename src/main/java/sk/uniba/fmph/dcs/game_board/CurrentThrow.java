@@ -11,7 +11,7 @@ public final class CurrentThrow implements InterfaceToolUse {
     private Player player;
     private int dices;
 
-    public void initiate(final Player player, final Effect effect, final int dices){
+    public void initiate(final Player player, final Effect effect, final int dices) {
         this.player = player;
         this.throwsFor = effect;
         this.dices = dices;
@@ -42,7 +42,7 @@ public final class CurrentThrow implements InterfaceToolUse {
         return !player.playerBoard().hasSufficientTools(1);
     }
 
-    public int getThrowsResult(){
-        return throwsResult/throwsFor.points();
+    public int getThrowsResult() {
+        return throwsResult / throwsFor.points();
     }
 }

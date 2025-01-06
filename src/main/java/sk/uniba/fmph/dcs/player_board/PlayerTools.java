@@ -112,12 +112,11 @@ public class PlayerTools {
         return ans;
     }
 
-    public int getToolStrength(final int index){
+    public int getToolStrength(final int index) {
         if (index < maxMultipleUseTools) {
             if (!usedTools[index]) {
                 return tools[index];
-            }
-            else {
+            } else {
                 return 0;
             }
         }

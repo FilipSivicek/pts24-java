@@ -16,7 +16,7 @@ public final class NewRoundState implements InterfaceGamePhaseState {
     private final Map<PlayerOrder, InterfaceNewTurn> playerPlayerBoardMap;
 
     public NewRoundState(final InterfaceFigureLocation[] places,
-                         final Map<PlayerOrder, InterfaceNewTurn> playerPlayerBoardMap) {
+            final Map<PlayerOrder, InterfaceNewTurn> playerPlayerBoardMap) {
         this.places = places;
         this.playerPlayerBoardMap = playerPlayerBoardMap;
     }
@@ -28,7 +28,7 @@ public final class NewRoundState implements InterfaceGamePhaseState {
 
     @Override
     public ActionResult makeAction(final PlayerOrder player, final Location location,
-                                   final Collection<Effect> inputResources, final Collection<Effect> outputResources) {
+            final Collection<Effect> inputResources, final Collection<Effect> outputResources) {
         return ActionResult.FAILURE;
     }
 

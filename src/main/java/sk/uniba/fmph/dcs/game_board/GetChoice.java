@@ -32,7 +32,7 @@ public class GetChoice implements EvaluateCivilisationCardImmediateEffect {
             return false;
         }
         numberOfResources--;
-        player.playerBoard().giveEffect(new Effect[] {choice});
+        player.playerBoard().giveEffect(new Effect[] { choice });
         return true;
     }
 }

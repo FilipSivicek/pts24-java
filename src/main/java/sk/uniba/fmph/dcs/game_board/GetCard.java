@@ -36,7 +36,7 @@ public class GetCard implements EvaluateCivilisationCardImmediateEffect {
         return true;
     }
 
-    public int getTakenCards(){
+    public int getTakenCards() {
         return takenCards;
     }
 }

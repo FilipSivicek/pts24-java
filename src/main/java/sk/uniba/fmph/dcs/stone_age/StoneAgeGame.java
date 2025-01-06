@@ -1,7 +1,5 @@
 package sk.uniba.fmph.dcs.stone_age;
 
-import sk.uniba.fmph.dcs.game_board.Player;
-
 import java.util.Collection;
 import java.util.Map;
 
@@ -13,9 +11,9 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
     private final InterfaceGetState gameBoardState;
     private final StoneAgeObservable observable;
 
-
-    public StoneAgeGame(final Map<Integer, PlayerOrder> players, final StoneAgeObservable observable, final InterfaceGamePhaseController phaseController,
-                        final Map<Integer, InterfaceGetState> playerBoardState, final InterfaceGetState gameBoardState) {
+    public StoneAgeGame(final Map<Integer, PlayerOrder> players, final StoneAgeObservable observable,
+            final InterfaceGamePhaseController phaseController, final Map<Integer, InterfaceGetState> playerBoardState,
+            final InterfaceGetState gameBoardState) {
         this.players = players;
         this.phaseController = phaseController;
         this.observable = observable;
@@ -24,7 +22,7 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
     }
 
     private void NOTIFY() {
-        for (int i: playerBoardState.keySet()){
+        for (int i : playerBoardState.keySet()) {
             observable.notify(playerBoardState.get(i).state());
         }
         String state2 = gameBoardState.state();
@@ -45,11 +43,21 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
     }
 
     @Override
-    public boolean makeAction(final int playerId, final Location location, final Collection<Effect> usedResources, final Collection<Effect> desiredResources) {
+    public boolean makeAction(final int playerId, final Location location, final Collection<Effect> usedResources,
+            final Collection<Effect> desiredResources) {
         if (!players.containsKey(playerId)) {
             return false;
         }
-        boolean result = phaseController.makeAction(players.get(playerId), location, desiredResources, usedResources); //Todo is this the correct way of passing the resources?
+        boolean result = phaseController.makeAction(players.get(playerId), location, desiredResources, usedResources); // Todo
+                                                                                                                       // is
+                                                                                                                       // this
+                                                                                                                       // the
+                                                                                                                       // correct
+                                                                                                                       // way
+                                                                                                                       // of
+                                                                                                                       // passing
+                                                                                                                       // the
+                                                                                                                       // resources?
         NOTIFY();
         return result;
     }
